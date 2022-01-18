@@ -2,4 +2,6 @@
 
 Please refere to the following [GIST](https://github.com/wizelineacademy/react-gist/blob/main/capstone-project-1/apprenticeship/README.md) for further instructions
 
+Something
+
 ---
