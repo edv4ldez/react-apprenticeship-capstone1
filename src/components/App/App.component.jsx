@@ -1,6 +1,7 @@
 import React, { useLayoutEffect } from 'react';
 import AppRouter from '../../router/AppRouter.router';
 import { random } from '../../utils/fns';
+import AuthProvider from '../../providers/Auth';
 
 function App() {
   useLayoutEffect(() => {
@@ -22,7 +23,9 @@ function App() {
   }, []);
 
   return (
-      <AppRouter/>
+      <AuthProvider>
+          <AppRouter/>
+      </AuthProvider>
   );
 }
 

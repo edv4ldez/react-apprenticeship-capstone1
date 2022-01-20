@@ -15,12 +15,12 @@ function LoginPage() {
     
     event.preventDefault();
     login();
-    history.push('/secret');
+    history.push('/');
 
   }
 
   return (
-    <section className="login">
+    <section className="login animate__animated animate__zoomIn">
       <h1>Welcome back!</h1>
       <form onSubmit={authenticate} className="login-form">
         <div className="form-group">
