@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import AddCategory from '../ListVideos/AddCategory.component';
 import SwitchButton from './SwitchButton.component';
-import { Link, NavLink} from 'react-router-dom'
+import { Link, NavLink, useHistory} from 'react-router-dom'
 
 import './Ui.styles.css';
 import styled from 'styled-components';
+import { useAuth } from '../../providers/Auth';
 
 //import { Link } from 'react-router-dom';
 
@@ -37,6 +38,75 @@ function Navbar() {
     );
 }
 
+function NavbarContent() { 
+
+    const history = useHistory();
+    const { authenticated, logout } = useAuth();
+
+    function deAuthenticate(event) {
+        event.preventDefault();
+        logout();
+        history.push('/');
+    }
+
+    return (
+        <>
+            <Link 
+                className = "navbar-text" 
+                to="/"
+                id='home'
+            >
+                <i className="fa fa-home" />
+                    Home 
+            </Link>
+            <div>
+                <NavbarContainer>
+                    
+                    {
+                        authenticated 
+                        &&
+                        (<NavLink 
+                            activeClassName="active"
+                            className="navbar-text"
+                            exact 
+                            to="/secret"
+                        >
+                            <i className="fa fa-star"/>
+                            Favorites     
+                        </NavLink>)
+                    }
+                    <SwitchButton/>
+                    <AddCategory/>
+                    {
+                        authenticated ? (
+                        <NavLink 
+                            activeClassName="active"
+                            className="navbar-text"
+                            exact 
+                            to="/"
+                            onClick={deAuthenticate}
+                        >
+                            <i className="fa fa-arrow-right" />
+                            Logout 
+                        </NavLink>
+                        ) : (
+                        <NavLink 
+                            activeClassName="active"
+                            className="navbar-text"
+                            exact 
+                            to="/login"
+                        >
+                            <i className="fa fa-arrow-right" />
+                            Login 
+                        </NavLink>
+                        )        
+                    }
+                </NavbarContainer>
+            </div>
+        </>
+    )
+}
+
 const NavbarHead = styled.div`
     display: flex;
     width: 100%;
@@ -64,44 +134,6 @@ const NavbarToggle = styled.div`
         align-items: flex-end;
     }
 `;
-
-function NavbarContent() { 
-    return (
-        <>
-            <Link 
-                className = "navbar-text" 
-                to="/"
-            >
-                <i className="fa fa-home" />
-                    Home 
-            </Link>
-            <div>
-                <NavbarContainer>
-                    <NavLink 
-                        activeClassName="active"
-                        className="navbar-text"
-                        exact 
-                        to="/secret"
-                    >
-                        <i className="fa fa-star"/>
-                        Favorites     
-                    </NavLink>
-                    <SwitchButton/>
-                    <AddCategory/>
-                    <NavLink 
-                        activeClassName="active"
-                        className="navbar-text"
-                        exact 
-                        to="/login"
-                    >
-                        <i className="fa fa-arrow-right" />
-                        Login 
-                    </NavLink>
-                </NavbarContainer>
-            </div>
-        </>
-    )
-}
 
 const NavbarContainer = styled.ul`
     display: flex;

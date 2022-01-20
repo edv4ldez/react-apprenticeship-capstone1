@@ -1,23 +1,20 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import VideosGrid from '../../components/ListVideos/VideosGrid.component';
+import { useAuth } from '../../providers/Auth';
 
 //Favorites
 function SecretPage() {
+  const { favorites } = useAuth();
+  const videos = Object.values(favorites);
+
   return (
     <section>
-      <pre>
-        welcome, voyager...
-        <Link to="/"> ← go back</Link>
+      <pre style={{'textAlign': 'center', 'fontSize': '30px'}}>
+        Favorites
+        <Link to="/">← go back</Link>
       </pre>
-      <iframe
-        width="800"
-        height="450"
-        allowFullScreen
-        frameBorder="0"
-        title="rick roll"
-        src="https://www.youtube.com/embed/dQw4w9WgXcQ?controls=0&autoplay=1"
-        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-      />
+      <VideosGrid videos={videos}/>
     </section>
   );
 }

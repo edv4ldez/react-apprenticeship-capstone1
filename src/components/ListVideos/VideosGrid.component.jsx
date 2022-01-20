@@ -1,16 +1,13 @@
 import React from 'react';
-import { useAuth } from '../../providers/Auth';
 import { VideosGridContainer } from '../../theme/pages/Videos/Videos.styles';
 
 
 import VideosList from './VideosList';
 
-function VideosGrid({setCategory}) {
+function VideosGrid({videos, direction}) {
     
-    const { videos } = useAuth();
-
     return(   
-        <VideosGridContainer>
+        <VideosGridContainer direction={direction} className="animate__animated animate__zoomIn">
             <VideosList videos = {videos}/>
         </VideosGridContainer>         
     )

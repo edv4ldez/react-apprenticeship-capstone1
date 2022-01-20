@@ -7,7 +7,6 @@ function AddCategory() {
     const [inputValue, setInputValue] = useState('wizeline');
     const { setCategory } = useAuth();
     const handleInputChange = (e) => {
-        //console.log(e);
         setInputValue( e.target.value );
     }
 

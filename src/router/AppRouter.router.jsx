@@ -4,68 +4,50 @@ import {
   Switch,
   Route,
 } from "react-router-dom";
-//import { AuthContext } from "../auth/AuthContext";
-//import { LoginScreen } from "../components/login/LoginScreen";
+import {ThemeProvider} from 'styled-components';
 
-import AuthProvider from '../providers/Auth';
+//import AuthProvider from '../providers/Auth';
 import HomePage from '../pages/Home';
 import LoginPage from '../pages/Login';
 import NotFound from '../pages/NotFound';
 import SecretPage from '../pages/Secret';
 import Layout from "../components/Layout";
-import PublicRoute from "./routes/PublicRoutes/PublicRoute.route";
-import PrivateRoute from "./routes/PrivateRoutes/PrivateRoute.route";
 import Navbar from "../components/Ui/Navbar.component";
 import VideoPlay from "../pages/Videos/VideoPlay.page";
-//import VideoPlay from '../../pages/Videos';
-
-
-//import { DashboardRoutes } from "./DashboardRoutes";
-//import { PrivateRoute } from "./PrivateRoute";
-//import { PublicRoute } from "./PublicRoute";
+import { useAuth } from "../providers/Auth";
+import Private from "../components/Private/Private.component";
+import { darkTheme, GlobalStyles, lightTheme } from "../theme";
 
 function AppRouter() {
-    
     //const {user} = useContext(AuthContext);
-
+    const { isChecked } = useAuth();
+    
     return (
-        
-        <Router>
-            <AuthProvider>
+        <ThemeProvider theme={isChecked ? lightTheme: darkTheme}>
+        <GlobalStyles/>    
+        <Router>    
             <Navbar/>
-                <Layout>
+            <Layout>
                 <Switch>
-                    <PublicRoute 
-                        exact
-                        path="/" 
-                        component={ HomePage } 
-                        isAuthenticated={false}
-                    />
-                    <PublicRoute 
-                        exact
-                        path="/:videoId" 
-                        component={ VideoPlay } 
-                        isAuthenticated={false}
-                    />
-                    <PublicRoute 
-                        exact 
-                        path="/login" 
-                        component={LoginPage}
-                        isAuthenticated={false}
-                    />
-                    <PrivateRoute 
-                        exact 
-                        path="/secret" 
-                        component={SecretPage}
-                        isAuthenticated={true}
-                    />
+                    <Route exact path="/">
+                        <HomePage />
+                    </Route>
+                    <Route exact path="/login">
+                        <LoginPage />
+                    </Route>
+                    <Route exact path="/videos/:videosId">
+                        <VideoPlay />
+                    </Route>
+                    <Private exact path="/secret">
+                        <SecretPage />
+                    </Private>
                     <Route path="*">
                         <NotFound />
                     </Route>
                 </Switch>
-                </Layout>
-            </AuthProvider>
+            </Layout>    
         </Router>
+        </ThemeProvider>
     )
 }
 

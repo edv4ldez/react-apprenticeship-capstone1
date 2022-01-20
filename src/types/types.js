@@ -1,5 +1,6 @@
 export const types = {
-    login: '[auth] login',
-    logout: '[auth] logout' 
-
+    addFavorite: '[favorites] add',
+    removeFavorite: '[favorites] remove',
+    isSelected: '[favorites] select',
+    isNotSelected: '[favorites] not select',
 }

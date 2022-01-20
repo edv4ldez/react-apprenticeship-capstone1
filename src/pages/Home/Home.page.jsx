@@ -9,8 +9,8 @@ function HomePage() {
   //to Read code
   const history = useHistory();
   const sectionRef = useRef(null);
-  const { authenticated, logout } = useAuth();
-
+  const { authenticated, logout, videos} = useAuth();
+  console.log(useAuth());
   function deAuthenticate(event) {
     event.preventDefault();
     logout();
@@ -19,7 +19,7 @@ function HomePage() {
 
   return (
     <>
-      <section className="homepage" ref={sectionRef}>
+      <section className="homepage animate__animated animate__zoomIn" ref={sectionRef}>
           <h1>Hello stranger!</h1>
           {authenticated ? (
             <>
@@ -36,7 +36,7 @@ function HomePage() {
             <Link to="/login">let me in →</Link>
           )}
       </section>
-      <VideosGrid/>
+      <VideosGrid videos={videos} direction={'row'}/>
     </>
   );
 }
